@@ -1,0 +1,249 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-projectCard
+      author: ruslan
+      changes:
+        - createTable:
+            tableName: project_management
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: office_location
+                  type: varchar(200)
+              - column:
+                  name: is_office
+                  type: boolean
+              - column:
+                  name: is_time_change
+                  type: boolean
+              - column:
+                  name: day_start
+                  type: varchar(200)
+              - column:
+                  name: day_end
+                  type: varchar(200)
+              - column:
+                  name: team_start_date
+                  type: varchar(200)
+              - column:
+                  name: over_time
+                  type: varchar(200)
+              - column:
+                  name: description
+                  type: varchar(200)
+              - column:
+                  name: tasks
+                  type: varchar(200)
+        - createTable:
+            tableName: project_team
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: is_product_develop
+                  type: boolean
+              - column:
+                  name: methodology
+                  type: varchar(200)
+              - column:
+                  name: analytics
+                  type: varchar(200)
+              - column:
+                  name: developers
+                  type: varchar(200)
+              - column:
+                  name: testers
+                  type: varchar(200)
+              - column:
+                  name: tech_writers
+                  type: varchar(200)
+              - column:
+                  name: stake_holders_count
+                  type: varchar(200)
+              - column:
+                  name: developer_requirements
+                  type: varchar(200)
+              - column:
+                  name: analytics_requirements
+                  type: varchar(200)
+              - column:
+                  name: dev_ops
+                  type: varchar(200)
+              - column:
+                  name: designers
+                  type: varchar(200)
+              - column:
+                  name: is_team_formed
+                  type: boolean
+        - createTable:
+            tableName: recruiting_card
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: varchar(200)
+              - column:
+                  name: email
+                  type: varchar(200)
+        - createTable:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: varchar(200)
+              - column:
+                  name: phone_number
+                  type: varchar(200)
+              - column:
+                  name: recruiting_card_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: recruiting_card_fk
+                    references: recruiting_card(id)
+        - createTable:
+            tableName: project_card
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: project_name
+                  type: varchar(200)
+              - column:
+                  name: status
+                  type: varchar(200)
+              - column:
+                  name: creator_name
+                  type: varchar(200)
+              - column:
+                  name: firm
+                  type: varchar(200)
+              - column:
+                  name: finishing_date
+                  type: varchar(200)
+              - column:
+                  name: project_stage
+                  type: varchar(200)
+              - column:
+                  name: is_document_required
+                  type: boolean
+              - column:
+                  name: card_create_date
+                  type: timestamp
+              - column:
+                  name: functional_direction
+                  type: varchar(200)
+              - column:
+                  name: project_area
+                  type: varchar(200)
+              - column:
+                  name: project_management_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: project_management
+              - column:
+                  name: project_team_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: project_team
+              - column:
+                  name: recruiting_card_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: recruiting_card
+        - createTable:
+            tableName: project_technologies
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: technologies
+                  type: varchar(200)
+              - column:
+                  name: project_card_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: project_technologies_card_fk
+                    references: project_card(id)
+        - createTable:
+            tableName: project_type
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: text
+                  type: varchar(200)
+              - column:
+                  name: project_card_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: project_type_card_fk
+                    references: project_card(id)
+        - createTable:
+            tableName: firm_dictionary
+            columns:
+              - column:
+                  name: firm
+                  type: varchar(200)
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+        - createTable:
+            tableName: project_area_dictionary
+            columns:
+              - column:
+                  name: area
+                  type: varchar(200)
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+        - createTable:
+            tableName: technologies_dictionary
+            columns:
+              - column:
+                  name: technology
+                  type: varchar(200)
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false

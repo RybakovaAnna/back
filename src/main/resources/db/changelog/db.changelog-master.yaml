@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-projectcard-table.yaml
+  - include:
+      file: db/changelog/changeset/insert_cards_values.sql
+  - include:
+      file: db/changelog/changeset/insert_dictionary_values.sql
