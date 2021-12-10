@@ -94,10 +94,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
         super.configure(http);
         http
                 .authorizeRequests()
-                .antMatchers("/api/table/read*").hasAnyRole("projectManagement", "recruiter", "lineManager")
+                .antMatchers("/api/table/readCards*").hasAnyRole("projectManagement", "recruiter", "lineManager")
                 .antMatchers("/api/table/update*").hasRole("projectManagement")
                 .antMatchers("/api/table/create*").hasRole("projectManagement")
                 .antMatchers("/api/table/delete*").hasRole("projectManagement")
+                .antMatchers("api/search*").hasAnyRole("projectManagement", "recruiter", "lineManager")
                 .anyRequest().permitAll()
                 .and()
                 .cors()

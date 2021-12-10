@@ -2,10 +2,10 @@
 --changeset ruslan:project_card_filling
 
 INSERT INTO project_management (id, day_end, day_start, is_office, is_time_change, team_start_date,
-                                over_time, description, tasks, office_location)
-VALUES (-1, 'string', 'string', true, true, 'string', 'string', 'string', 'string', 'string'),
-       (-2, 'string', 'string', true, true, 'string', 'string', 'string', 'string', 'string'),
-       (-3, 'string', 'string', true, true, 'string', 'string', 'string', 'string', 'string');
+                                over_time, description, tasks, office_location, comment)
+VALUES (-1, 'string', 'string', true, true, 'string', 'string', 'string', 'string', 'string', 'string'),
+       (-2, 'string', 'string', true, true, 'string', 'string', 'string', 'string', 'string', 'string'),
+       (-3, 'string', 'string', true, true, 'string', 'string', 'string', 'string', 'string', 'string');
 
 INSERT INTO project_team (id, is_product_develop, methodology, analytics, developers, testers, tech_writers,
                           stake_holders_count, developer_requirements, analytics_requirements, dev_ops,

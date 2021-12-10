@@ -33,9 +33,9 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     }
 
     @Override
-    public void updateTable(Long id, MainCardDto dto) {
-        ProjectCard projectCard = projectCardRepository.findProjectCardById(id);
-        Long firstId = projectCard.getId();
+    public void updateTable(MainCardDto dto) {
+        Long firstId = dto.getId();
+        ProjectCard projectCard = projectCardRepository.findProjectCardById(firstId);
 
         ProjectTeam projectTeam = mapper.map(dto.getProjectTeamCardDto(), ProjectTeam.class);
         ProjectManagement projectManagement = mapper.map(dto.getProjectManagementDto(), ProjectManagement.class);
@@ -50,27 +50,43 @@ public class ProjectCardServiceImpl implements ProjectCardService {
             recruitingCard.getEmployeesLists().add(employee);
         });
 
-        List<ProjectType> type = new ArrayList<>();
-        projectCard.setProjectType(type);
-        List<String> dtoType = dto.getProjectTypeDto();
-        ProjectCard finalProjectCard1 = projectCard;
-        dtoType.forEach(e -> {
-            ProjectType projectType = new ProjectType(e);
-            projectTypeRepository.save(projectType);
-            finalProjectCard1.getProjectType().add(projectType);
-        });
+//        List<ProjectType> type = new ArrayList<>();
+//        projectCard.setProjectType(type);
+//        List<String> dtoType = dto.getProjectTypeDto();
+//        ProjectCard finalProjectCard1 = projectCard;
+//        dtoType.forEach(e -> {
+//            ProjectType projectType = new ProjectType(e);
+//            projectTypeRepository.save(projectType);
+//            projectCard.getProjectType().add(projectType);
+//        });
 
-        List<ProjectTechnologies> technologies = new ArrayList<>();
-        projectCard.setProjectTechnologies(technologies);
-        List<String> dtoTechnologies = dto.getTechnologies();
-        ProjectCard finalProjectCard = projectCard;
-        dtoTechnologies.forEach(t -> {
-            ProjectTechnologies projectTechnologies = new ProjectTechnologies(t);
-            TechnologiesDictionary technologiesDictionary = new TechnologiesDictionary(t);
-            technologiesDictionaryRepository.save(technologiesDictionary);
-            projectTechnologiesRepository.save(projectTechnologies);
-            finalProjectCard.getProjectTechnologies().add(projectTechnologies);
-        });
+        List<String> projectTypeDto = dto.getProjectTypeDto();
+        projectCard.setProjectType(new ArrayList<>());
+        int count = 0;
+        while (count < projectTypeDto.size()){
+            ProjectType projectType = new ProjectType(projectTypeDto.get(count++));
+            projectCard.getProjectType().add(projectType);
+        }
+
+//        List<ProjectTechnologies> technologies = new ArrayList<>();
+//        projectCard.setProjectTechnologies(technologies);
+//        List<String> dtoTechnologies = dto.getTechnologies();
+//        ProjectCard finalProjectCard = projectCard;
+//        dtoTechnologies.forEach(t -> {
+//            ProjectTechnologies projectTechnologies = new ProjectTechnologies(t);
+//            TechnologiesDictionary technologiesDictionary = new TechnologiesDictionary(t);
+//            technologiesDictionaryRepository.save(technologiesDictionary);
+//            projectTechnologiesRepository.save(projectTechnologies);
+//            finalProjectCard.getProjectTechnologies().add(projectTechnologies);
+//        });
+
+        List<String> technologies = dto.getTechnologies();
+        projectCard.setProjectTechnologies(new ArrayList<>());
+        count = 0;
+        while (count < technologies.size()){
+            ProjectTechnologies projectTechnologies = new ProjectTechnologies(technologies.get(count++));
+            projectCard.getProjectTechnologies().add(projectTechnologies);
+        }
 
         projectTeam.setId(firstId);
         projectManagement.setId(firstId);
@@ -87,8 +103,8 @@ public class ProjectCardServiceImpl implements ProjectCardService {
         projectCard.setProjectManagement(projectManagement);
         projectCard.setProjectTeam(projectTeam);
         projectCard.setRecruitingCard(recruitingCard);
-        projectCard.setProjectType(type);
-        projectCard.setProjectTechnologies(technologies);
+//        projectCard.setProjectType(type);
+//        projectCard.setProjectTechnologies(technologies);
 
         projectCard.setId(firstId);
 
@@ -97,7 +113,7 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     }
 
     @Override
-    public void createTable(MainCardDto dto) {
+    public Long createTable(MainCardDto dto) {
         ProjectCard projectCard = mapper.map(dto.getProjectCardDto(), ProjectCard.class);
 
         ProjectAreaDictionary projectAreaDictionary = new ProjectAreaDictionary(projectCard.getProjectArea());
@@ -142,6 +158,8 @@ public class ProjectCardServiceImpl implements ProjectCardService {
         });
 
         projectCardRepository.save(projectCard);
+
+        return projectCard.getId();
     }
 
     @Override
@@ -152,7 +170,7 @@ public class ProjectCardServiceImpl implements ProjectCardService {
 
 
     @Override
-    public List<Object> findTable(Long id) {
+    public List<MainCardDto> findTable(Long id) {
         MainCardDto mainCardDto = new MainCardDto();
 
         ProjectCard projectCard = projectCardRepository.findProjectCardById(id);

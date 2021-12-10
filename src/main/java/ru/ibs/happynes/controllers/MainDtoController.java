@@ -25,35 +25,32 @@ public class MainDtoController {
         return modelMapper.map(projectCard, ImportantTableDto.class);
     }
 
-//    @RolesAllowed("projectmanagement")
-    @GetMapping("read")
+    @GetMapping("readCards")
     private List<Object> readDTOCards(@RequestParam(required = false) Long id) {
-
-        if (id == null) {
             List<ProjectCard> tables = projectCardService.findAll();
             return MapperUtil.convertList(tables, this::convertToDTO);
-        } else {
-            return projectCardService.findTable(id);
-        }
     }
 
-//    @RolesAllowed("projectManagement")
+    @GetMapping("read")
+    private List<MainCardDto> readDTOcard(@RequestParam Long id) {
+        return projectCardService.findTable(id);
+    }
+
+    @ResponseBody()
     @PostMapping("create")
-    private void createDTOCard(@RequestBody MainCardDto dto){
-        projectCardService.createTable(dto);
+    private Long createDTOCard(@RequestBody MainCardDto dto){
+        return projectCardService.createTable(dto);
     }
 
-//    @RolesAllowed("projectManagement")
     @PostMapping("delete")
     private void deleteDTOCard(@RequestParam Long id){
         projectCardService.deleteTable(id);
     }
 
     //TODO: убрать параметр id
-//    @RolesAllowed("projectmanagement")
     @PostMapping("update")
-    private void updateDTOCard(@RequestParam long id, @RequestBody MainCardDto dto){
-        projectCardService.updateTable(id, dto);
+    private void updateDTOCard(@RequestBody MainCardDto dto){
+        projectCardService.updateTable(dto);
     }
 
     @GetMapping("technologies")

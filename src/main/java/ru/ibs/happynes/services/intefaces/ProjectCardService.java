@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface ProjectCardService {
     void deleteTable(Long id);
-    void updateTable(Long id, MainCardDto dto);
-    void createTable(MainCardDto dto);
+    void updateTable(MainCardDto dto);
+    Long createTable(MainCardDto dto);
     List<ProjectCard> findAll();
-    List<Object> findTable(Long id);
+    List<MainCardDto> findTable(Long id);
 
     List<String> findTechnologiesDictionary();
 

@@ -25,4 +25,6 @@ public class ProjectManagementDto {
     private String description;
 
     private String tasks;
+
+    private String comment;
 }

@@ -40,6 +40,9 @@ databaseChangeLog:
               - column:
                   name: tasks
                   type: varchar(200)
+              - column:
+                  name: comment
+                  type: varchar(200)
         - createTable:
             tableName: project_team
             columns:

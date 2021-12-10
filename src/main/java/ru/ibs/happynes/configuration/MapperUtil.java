@@ -50,6 +50,7 @@ public class MapperUtil {
                     m.map(ProjectManagement::getDescription, ProjectManagementDto::setDescription);
                     m.map(ProjectManagement::getTasks, ProjectManagementDto::setTasks);
                     m.map(ProjectManagement::getIsOffice, ProjectManagementDto::setIsOffice);
+                    m.map(ProjectManagement::getComment, ProjectManagementDto::setComment);
                 });
 
         mapper.typeMap(ProjectTeam.class, ProjectTeamCardDto.class)
@@ -106,6 +107,7 @@ public class MapperUtil {
                     m.map(ProjectManagementDto::getOverTime, ProjectManagement::setOverTime);
                     m.map(ProjectManagementDto::getDescription, ProjectManagement::setDescription);
                     m.map(ProjectManagementDto::getTasks, ProjectManagement::setTasks);
+                    m.map(ProjectManagementDto::getComment, ProjectManagement::setComment);
                 });
 
         mapper.typeMap(ProjectTeamCardDto.class, ProjectTeam.class)
