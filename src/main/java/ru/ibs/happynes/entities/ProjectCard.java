@@ -57,7 +57,7 @@ public class ProjectCard {
     private List<ProjectType> projectType;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_card_id")
     private List<ProjectTechnologies> projectTechnologies;
 
