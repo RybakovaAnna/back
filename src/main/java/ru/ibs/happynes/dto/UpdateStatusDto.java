@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class EmployeeListDto {
+public class UpdateStatusDto {
 
-    private String fullName;
+    private Long id;
 
-    private String contacts;
+    private String status;
 }

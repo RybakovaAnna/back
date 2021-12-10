@@ -18,5 +18,5 @@ public class Employee {
 
     private String fullName;
 
-    private String phoneNumber;
+    private String contacts;
 }

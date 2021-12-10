@@ -17,12 +17,12 @@ VALUES (-1, true, 'string', 'string', 'string', 'string', 'string', 'string', 's
        (-3, true, 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string', 'string',
         true);
 
-INSERT INTO recruiting_card (id, full_name, email)
+INSERT INTO recruiting_card (id, full_name, contacts)
 VALUES (-1, 'string', 'string'),
        (-2, 'string', 'string'),
        (-3, 'string', 'string');
 
-INSERT INTO employee (id, full_name, phone_number, recruiting_card_id)
+INSERT INTO employee (id, full_name, contacts, recruiting_card_id)
 VALUES (-1, 'string', 'string', -1),
        (-2, 'string', 'string', -1),
        (-3, 'string', 'string', -1),
@@ -35,8 +35,7 @@ VALUES (-1, 'string', 'string', -1),
 
 INSERT INTO project_card (id, project_name, creator_name, firm, finishing_date, project_stage, is_document_required,
                           card_create_date, functional_direction, project_area, status, project_management_id,
-                          project_team_id,
-                          recruiting_card_id)
+                          project_team_id, recruiting_card_id)
 VALUES (-1, 'string', 'string', 'string', 'string', 'string', true, '2021-12-01T18:34:15.857Z', 'string', 'string',
         'string', - 1, -1, -1),
        (-2, 'string', 'string', 'string', 'string', 'string', true, '2021-12-01T18:34:15.857Z', 'string', 'string',

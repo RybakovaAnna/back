@@ -103,7 +103,7 @@ databaseChangeLog:
                   name: full_name
                   type: varchar(200)
               - column:
-                  name: email
+                  name: contacts
                   type: varchar(200)
         - createTable:
             tableName: employee
@@ -119,7 +119,7 @@ databaseChangeLog:
                   name: full_name
                   type: varchar(200)
               - column:
-                  name: phone_number
+                  name: contacts
                   type: varchar(200)
               - column:
                   name: recruiting_card_id

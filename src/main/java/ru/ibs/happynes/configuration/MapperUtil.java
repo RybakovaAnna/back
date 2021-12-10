@@ -72,13 +72,13 @@ public class MapperUtil {
         mapper.typeMap(RecruitingCard.class, RecruitingCardDto.class)
                 .addMappings(m -> {
                     m.map(RecruitingCard::getFullName, RecruitingCardDto::setFullName);
-                    m.map(RecruitingCard::getEmail, RecruitingCardDto::setEmail);
+                    m.map(RecruitingCard::getContacts, RecruitingCardDto::setContacts);
                 });
 
         mapper.typeMap(Employee.class, EmployeeListDto.class)
                 .addMappings(m -> {
                     m.map(Employee::getFullName, EmployeeListDto::setFullName);
-                    m.map(Employee::getPhoneNumber, EmployeeListDto::setPhoneNumber);
+                    m.map(Employee::getContacts, EmployeeListDto::setContacts);
                 });
 
 
@@ -129,13 +129,13 @@ public class MapperUtil {
         mapper.typeMap(RecruitingCardDto.class, RecruitingCard.class)
                 .addMappings(m -> {
                     m.map(RecruitingCardDto::getFullName, RecruitingCard::setFullName);
-                    m.map(RecruitingCardDto::getEmail, RecruitingCard::setEmail);
+                    m.map(RecruitingCardDto::getContacts, RecruitingCard::setContacts);
                 });
 
         mapper.typeMap(EmployeeListDto.class, Employee.class)
                 .addMappings(m -> {
                     m.map(EmployeeListDto::getFullName, Employee::setFullName);
-                    m.map(EmployeeListDto::getPhoneNumber, Employee::setPhoneNumber);
+                    m.map(EmployeeListDto::getContacts, Employee::setContacts);
                 });
 
         return mapper;

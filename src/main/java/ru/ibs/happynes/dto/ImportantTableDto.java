@@ -16,13 +16,13 @@ public class ImportantTableDto {
 
     private String creatorName;
 
-    private String projectStage;
-
-    private String functionalDirection;
-
     private String firm;
 
+    private String projectArea;
+
     private String status;
+
+    private String projectStage;
 
     private Date cardCreateDate;
 }

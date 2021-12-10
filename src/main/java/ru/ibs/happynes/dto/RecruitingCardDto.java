@@ -11,7 +11,7 @@ public class RecruitingCardDto {
 
     private String fullName;
 
-    private String email;
+    private String contacts;
 
     private List<EmployeeListDto> employeeListDtoList;
 }

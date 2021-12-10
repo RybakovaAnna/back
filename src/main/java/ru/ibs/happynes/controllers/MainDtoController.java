@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.ibs.happynes.configuration.MapperUtil;
 import ru.ibs.happynes.dto.ImportantTableDto;
 import ru.ibs.happynes.dto.MainCardDto;
+import ru.ibs.happynes.dto.UpdateStatusDto;
 import ru.ibs.happynes.entities.ProjectCard;
 import ru.ibs.happynes.services.intefaces.ProjectCardService;
 
@@ -36,7 +37,6 @@ public class MainDtoController {
         return projectCardService.findTable(id);
     }
 
-    @ResponseBody()
     @PostMapping("create")
     private Long createDTOCard(@RequestBody MainCardDto dto){
         return projectCardService.createTable(dto);
@@ -47,10 +47,14 @@ public class MainDtoController {
         projectCardService.deleteTable(id);
     }
 
-    //TODO: убрать параметр id
     @PostMapping("update")
     private void updateDTOCard(@RequestBody MainCardDto dto){
         projectCardService.updateTable(dto);
+    }
+
+    @PostMapping("status")
+    private void updateStatus(@RequestBody UpdateStatusDto dto){
+        projectCardService.updateStatus(dto);
     }
 
     @GetMapping("technologies")

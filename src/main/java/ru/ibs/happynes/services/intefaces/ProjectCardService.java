@@ -1,6 +1,7 @@
 package ru.ibs.happynes.services.intefaces;
 
 import ru.ibs.happynes.dto.MainCardDto;
+import ru.ibs.happynes.dto.UpdateStatusDto;
 import ru.ibs.happynes.entities.ProjectCard;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface ProjectCardService {
     List<String> findProjectAreaDictionary();
 
     List<String> findFirmDictionary();
+
+    void updateStatus(UpdateStatusDto dto);
 }

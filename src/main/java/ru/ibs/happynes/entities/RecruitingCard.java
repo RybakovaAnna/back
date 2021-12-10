@@ -21,7 +21,7 @@ public class RecruitingCard {
 
     private String fullName;
 
-    private String email;
+    private String contacts;
 
     @JoinColumn(name = "recruiting_card_id")
     @OneToMany(cascade = CascadeType.ALL)
