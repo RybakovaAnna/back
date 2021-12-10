@@ -36,10 +36,10 @@ databaseChangeLog:
                   type: varchar(200)
               - column:
                   name: description
-                  type: varchar(200)
+                  type: varchar(2000)
               - column:
                   name: tasks
-                  type: varchar(200)
+                  type: varchar(2000)
               - column:
                   name: comment
                   type: varchar(200)
@@ -76,10 +76,10 @@ databaseChangeLog:
                   type: varchar(200)
               - column:
                   name: developer_requirements
-                  type: varchar(200)
+                  type: varchar(600)
               - column:
                   name: analytics_requirements
-                  type: varchar(200)
+                  type: varchar(600)
               - column:
                   name: dev_ops
                   type: varchar(200)
@@ -188,7 +188,6 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
