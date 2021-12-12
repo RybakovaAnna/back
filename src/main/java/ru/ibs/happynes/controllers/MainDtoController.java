@@ -2,7 +2,9 @@ package ru.ibs.happynes.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.support.HttpRequestWrapper;
 import org.springframework.web.bind.annotation.*;
 import ru.ibs.happynes.configuration.MapperUtil;
 import ru.ibs.happynes.dto.ImportantTableDto;
@@ -12,6 +14,8 @@ import ru.ibs.happynes.entities.ProjectCard;
 import ru.ibs.happynes.services.intefaces.ProjectCardService;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.List;
 
 @RestController
@@ -72,4 +76,8 @@ public class MainDtoController {
         return projectCardService.findFirmDictionary();
     }
 
+    @GetMapping("logout")
+    private void logOut(){
+
+    }
 }
