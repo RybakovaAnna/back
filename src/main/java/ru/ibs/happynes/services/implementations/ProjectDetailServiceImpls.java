@@ -54,21 +54,21 @@ public class ProjectDetailServiceImpls implements ProjectDetailService {
                 });
     }
 
-    public List<ProjectCard> fAllInDate(Date bDate, Date aDate) {
-
-        List<ProjectCard> list = projectCardRepository.findAll();
-        List<ProjectCard> result = new ArrayList<>();
-        list
-                .forEach(t -> {
-                    try {
-                        if (dateChecker(t.getCardCreateDate(), bDate, aDate))
-                            result.add(t);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                });
-        return result;
-    }
+//    public List<ProjectCard> fAllInDate(Date bDate, Date aDate) {
+//
+//        List<ProjectCard> list = projectCardRepository.findAll();
+//        List<ProjectCard> result = new ArrayList<>();
+//        list
+//                .forEach(t -> {
+//                    try {
+//                        if (dateChecker(t.getCardCreateDate(), bDate, aDate))
+//                            result.add(t);
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+//        return result;
+//    }
 
     private Boolean dateChecker(Date date, Date before, Date after) throws ParseException {
         return (date.before(after) && date.after(before));
@@ -92,34 +92,6 @@ public class ProjectDetailServiceImpls implements ProjectDetailService {
     @Override
     public List<ProjectCard> filter(FilterSearchDto filterSearchDto) {
 
-//        List<ProjectCard> list = projectCardRepository.findAll();
-//
-//        if (filterSearchDto.getProjectStage() != null)
-//            list = list.stream().filter(
-//                    v -> filterSearchDto.getProjectStage().equals(v.getProjectStage())
-//            ).collect(Collectors.toList());
-//
-//        if (filterSearchDto.getFirm() != null)
-//            list = list.stream().filter(
-//                    v -> filterSearchDto.getFirm().equals(v.getFirm())
-//            ).collect(Collectors.toList());
-//
-//        if (filterSearchDto.getCreatorName() != null)
-//            list = list.stream().filter(
-//                    v -> filterSearchDto.getCreatorName().equals(v.getCreatorName())
-//            ).collect(Collectors.toList());
-//
-//        if (filterSearchDto.getDateBefore() != null && filterSearchDto.getDateAfter() != null){
-//            List<ProjectCard> compare = fAllInDate(filterSearchDto.getDateBefore(), filterSearchDto.getDateAfter());
-//            Set<ProjectCard> result = list.stream()
-//                    .distinct()
-//                    .filter(compare::contains)
-//                    .collect(Collectors.toSet());
-//            list.clear();
-//            list.addAll(result);
-//        }
-//
-//        return list;
         String creatorName = filterSearchDto.getCreatorName();
         String stage = filterSearchDto.getProjectStage();
         String firm = filterSearchDto.getFirm();

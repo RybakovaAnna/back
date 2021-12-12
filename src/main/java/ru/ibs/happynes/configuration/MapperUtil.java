@@ -73,13 +73,22 @@ public class MapperUtil {
         mapper.typeMap(RecruitingCard.class, RecruitingCardDto.class)
                 .addMappings(m -> {
                     m.map(RecruitingCard::getFullName, RecruitingCardDto::setFullName);
-                    m.map(RecruitingCard::getContacts, RecruitingCardDto::setContacts);
+                    m.map(RecruitingCard::getPhoneNumber, RecruitingCardDto::setPhoneNumber);
+                    m.map(RecruitingCard::getEmail, RecruitingCardDto::setEmail);
                 });
 
-        mapper.typeMap(Employee.class, EmployeeListDto.class)
+        mapper.typeMap(EmployeeA.class, EmployeeAListDto.class)
                 .addMappings(m -> {
-                    m.map(Employee::getFullName, EmployeeListDto::setFullName);
-                    m.map(Employee::getContacts, EmployeeListDto::setContacts);
+                    m.map(EmployeeA::getFullAnalyticName, EmployeeAListDto::setFullAnalyticName);
+                    m.map(EmployeeA::getPhoneAnalyticNumber, EmployeeAListDto::setPhoneAnalyticNumber);
+                    m.map(EmployeeA::getEmailAnalytic, EmployeeAListDto::setEmailAnalytic);
+                });
+
+        mapper.typeMap(EmployeeD.class, EmployeeDListDto.class)
+                .addMappings(m -> {
+                    m.map(EmployeeD::getFullName, EmployeeDListDto::setFullName);
+                    m.map(EmployeeD::getPhoneNumber, EmployeeDListDto::setPhoneNumber);
+                    m.map(EmployeeD::getEmail, EmployeeDListDto::setEmail);
                 });
 
 
@@ -131,13 +140,22 @@ public class MapperUtil {
         mapper.typeMap(RecruitingCardDto.class, RecruitingCard.class)
                 .addMappings(m -> {
                     m.map(RecruitingCardDto::getFullName, RecruitingCard::setFullName);
-                    m.map(RecruitingCardDto::getContacts, RecruitingCard::setContacts);
+                    m.map(RecruitingCardDto::getPhoneNumber, RecruitingCard::setPhoneNumber);
+                    m.map(RecruitingCardDto::getEmail, RecruitingCard::setEmail);
                 });
 
-        mapper.typeMap(EmployeeListDto.class, Employee.class)
+        mapper.typeMap(EmployeeAListDto.class, EmployeeA.class)
                 .addMappings(m -> {
-                    m.map(EmployeeListDto::getFullName, Employee::setFullName);
-                    m.map(EmployeeListDto::getContacts, Employee::setContacts);
+                    m.map(EmployeeAListDto::getFullAnalyticName, EmployeeA::setFullAnalyticName);
+                    m.map(EmployeeAListDto::getPhoneAnalyticNumber, EmployeeA::setPhoneAnalyticNumber);
+                    m.map(EmployeeAListDto::getEmailAnalytic, EmployeeA::setEmailAnalytic);
+                });
+
+        mapper.typeMap(EmployeeDListDto.class, EmployeeD.class)
+                .addMappings(m -> {
+                    m.map(EmployeeDListDto::getFullName, EmployeeD::setFullName);
+                    m.map(EmployeeDListDto::getPhoneNumber, EmployeeD::setPhoneNumber);
+                    m.map(EmployeeDListDto::getEmail, EmployeeD::setEmail);
                 });
 
         return mapper;

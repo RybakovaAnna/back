@@ -9,14 +9,16 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class Employee {
+public class EmployeeA {
 
     @Id
     @PrimaryKeyJoinColumn
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullName;
+    private String fullAnalyticName;
 
-    private String contacts;
+    private String phoneAnalyticNumber;
+
+    private String emailAnalytic;
 }

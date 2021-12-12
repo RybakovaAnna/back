@@ -21,10 +21,16 @@ public class RecruitingCard {
 
     private String fullName;
 
-    private String contacts;
+    private String phoneNumber;
+
+    private String email;
 
     @JoinColumn(name = "recruiting_card_id")
     @OneToMany(cascade = CascadeType.ALL)
-    List<Employee> employeesLists;
+    List<EmployeeA> employeesALists;
+
+    @JoinColumn(name = "recruiting_card_id")
+    @OneToMany(cascade = CascadeType.ALL)
+    List<EmployeeD> employeesDLists;
 
 }

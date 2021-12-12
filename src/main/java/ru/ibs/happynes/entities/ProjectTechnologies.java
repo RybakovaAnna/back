@@ -13,7 +13,7 @@ public class ProjectTechnologies {
 
     @Id
     @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     @Column(unique=true, nullable = false)
     private Long id;

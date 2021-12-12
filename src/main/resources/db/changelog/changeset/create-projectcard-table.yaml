@@ -106,10 +106,38 @@ databaseChangeLog:
                   name: full_name
                   type: varchar(200)
               - column:
-                  name: contacts
+                  name: phone_number
+                  type: varchar(200)
+              - column:
+                  name: email
                   type: varchar(200)
         - createTable:
-            tableName: employee
+            tableName: employeea
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: full_analytic_name
+                  type: varchar(200)
+              - column:
+                  name: phone_analytic_number
+                  type: varchar(200)
+              - column:
+                  name: email_analytic
+                  type: varchar(200)
+              - column:
+                  name: recruiting_card_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: recruiting_card_a_fk
+                    references: recruiting_card(id)
+        - createTable:
+            tableName: employeed
             columns:
               - column:
                   name: id
@@ -122,13 +150,16 @@ databaseChangeLog:
                   name: full_name
                   type: varchar(200)
               - column:
-                  name: contacts
+                  name: phone_number
+                  type: varchar(200)
+              - column:
+                  name: email
                   type: varchar(200)
               - column:
                   name: recruiting_card_id
                   type: bigint
                   constraints:
-                    foreignKeyName: recruiting_card_fk
+                    foreignKeyName: recruiting_card_d_fk
                     references: recruiting_card(id)
         - createTable:
             tableName: project_card
@@ -193,7 +224,6 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: technologies
                   type: varchar(200)
@@ -212,7 +242,6 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    nullable: false
               - column:
                   name: text
                   type: varchar(200)

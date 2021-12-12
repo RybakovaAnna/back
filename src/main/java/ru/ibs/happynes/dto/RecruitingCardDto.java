@@ -11,7 +11,11 @@ public class RecruitingCardDto {
 
     private String fullName;
 
-    private String contacts;
+    private String phoneNumber;
 
-    private List<EmployeeListDto> employeeListDtoList;
+    private String email;
+
+    private List<EmployeeAListDto> employeeAListDtoList;
+
+    private List<EmployeeDListDto> employeeDListDtoList;
 }

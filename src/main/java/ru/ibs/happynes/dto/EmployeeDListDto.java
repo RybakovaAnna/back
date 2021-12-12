@@ -5,9 +5,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class EmployeeListDto {
+public class EmployeeDListDto {
 
     private String fullName;
 
-    private String contacts;
+    private String phoneNumber;
+
+    private String email;
 }

@@ -18,9 +18,8 @@ import java.util.List;
 public class ProjectCardServiceImpl implements ProjectCardService {
 
     private final ProjectCardRepository projectCardRepository;
-    private final EmployeeListRepository employeeListRepository;
-    private final ProjectTypeRepository projectTypeRepository;
-    private final ProjectTechnologiesRepository projectTechnologiesRepository;
+    private final EmployeeAListRepository employeeAListRepository;
+    private final EmployeeDListRepository employeeDListRepository;
     private final TechnologiesDictionaryRepository technologiesDictionaryRepository;
     private final ProjectAreaDictionaryRepository projectAreaDictionaryRepository;
     private final FirmDictionaryRepository firmDictionaryRepository;
@@ -35,19 +34,27 @@ public class ProjectCardServiceImpl implements ProjectCardService {
     @Override
     public void updateTable(MainCardDto dto) {
         Long firstId = dto.getId();
-        ProjectCard projectCard = projectCardRepository.findProjectCardById(firstId);
+        ProjectCard projectCard;
 
         ProjectTeam projectTeam = mapper.map(dto.getProjectTeamCardDto(), ProjectTeam.class);
         ProjectManagement projectManagement = mapper.map(dto.getProjectManagementDto(), ProjectManagement.class);
 
         RecruitingCard recruitingCard = mapper.map(dto.getRecruitingCardDto(), RecruitingCard.class);
-        List<Employee> list = new ArrayList<>();
-        recruitingCard.setEmployeesLists(list);
-        List<EmployeeListDto> employeeListDto = dto.getRecruitingCardDto().getEmployeeListDtoList();
-        employeeListDto.forEach(e -> {
-            Employee employee = mapper.map(e, Employee.class);
-            employeeListRepository.save(employee);
-            recruitingCard.getEmployeesLists().add(employee);
+        List<EmployeeA> listA = new ArrayList<>();
+        recruitingCard.setEmployeesALists(listA);
+        List<EmployeeAListDto> employeeAListDto = dto.getRecruitingCardDto().getEmployeeAListDtoList();
+        employeeAListDto.forEach(e -> {
+            EmployeeA employeeA = mapper.map(e, EmployeeA.class);
+            employeeAListRepository.save(employeeA);
+            recruitingCard.getEmployeesALists().add(employeeA);
+        });
+        List<EmployeeD> listD = new ArrayList<>();
+        recruitingCard.setEmployeesDLists(listD);
+        List<EmployeeDListDto> employeeDListDto = dto.getRecruitingCardDto().getEmployeeDListDtoList();
+        employeeDListDto.forEach(e -> {
+            EmployeeD employeeD = mapper.map(e, EmployeeD.class);
+            employeeDListRepository.save(employeeD);
+            recruitingCard.getEmployeesDLists().add(employeeD);
         });
 
         projectTeam.setId(firstId);
@@ -105,13 +112,21 @@ public class ProjectCardServiceImpl implements ProjectCardService {
         projectCard.setProjectManagement(projectManagement);
 
         RecruitingCard recruitingCard = mapper.map(dto.getRecruitingCardDto(), RecruitingCard.class);
-        List<Employee> list = new ArrayList<>();
-        recruitingCard.setEmployeesLists(list);
-        List<EmployeeListDto> employeeListDto = dto.getRecruitingCardDto().getEmployeeListDtoList();
-        employeeListDto.forEach(e -> {
-            Employee employee = mapper.map(e, Employee.class);
+        List<EmployeeA> listA = new ArrayList<>();
+        recruitingCard.setEmployeesALists(listA);
+        List<EmployeeAListDto> employeeAListDto = dto.getRecruitingCardDto().getEmployeeAListDtoList();
+        employeeAListDto.forEach(e -> {
+            EmployeeA employeeA = mapper.map(e, EmployeeA.class);
 
-            recruitingCard.getEmployeesLists().add(employee);
+            recruitingCard.getEmployeesALists().add(employeeA);
+        });
+        List<EmployeeD> listD = new ArrayList<>();
+        recruitingCard.setEmployeesDLists(listD);
+        List<EmployeeDListDto> employeeDListDto = dto.getRecruitingCardDto().getEmployeeDListDtoList();
+        employeeDListDto.forEach(e -> {
+            EmployeeD employeeD = mapper.map(e, EmployeeD.class);
+
+            recruitingCard.getEmployeesDLists().add(employeeD);
         });
         projectCard.setRecruitingCard(recruitingCard);
 
@@ -134,12 +149,6 @@ public class ProjectCardServiceImpl implements ProjectCardService {
         });
 
         projectCardRepository.save(projectCard);
-
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return projectCard.getId();
     }
 
@@ -170,9 +179,13 @@ public class ProjectCardServiceImpl implements ProjectCardService {
         projectCard.getProjectTechnologies()
                 .forEach(t -> technologies.add(t.getTechnologies()));
 
-        List<EmployeeListDto> employeeLists = new ArrayList<>();
-        projectCard.getRecruitingCard().getEmployeesLists()
-                .forEach(e -> employeeLists.add(mapper.map(e, EmployeeListDto.class)));
+        List<EmployeeAListDto> employeeALists = new ArrayList<>();
+        projectCard.getRecruitingCard().getEmployeesALists()
+                .forEach(e -> employeeALists.add(mapper.map(e, EmployeeAListDto.class)));
+
+        List<EmployeeDListDto> employeeDLists = new ArrayList<>();
+        projectCard.getRecruitingCard().getEmployeesDLists()
+                .forEach(e -> employeeDLists.add(mapper.map(e, EmployeeDListDto.class)));
 
         mainCardDto.setId(cardId);
         mainCardDto.setProjectCardDto(projectCardDto);
@@ -181,7 +194,8 @@ public class ProjectCardServiceImpl implements ProjectCardService {
         mainCardDto.setRecruitingCardDto(recruitingCardDto);
         mainCardDto.setProjectTypeDto(type);
         mainCardDto.setTechnologies(technologies);
-        mainCardDto.getRecruitingCardDto().setEmployeeListDtoList(employeeLists);
+        mainCardDto.getRecruitingCardDto().setEmployeeAListDtoList(employeeALists);
+        mainCardDto.getRecruitingCardDto().setEmployeeDListDtoList(employeeDLists);
 
         return Collections.singletonList(mainCardDto);
     }
