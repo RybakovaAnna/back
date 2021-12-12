@@ -9,6 +9,7 @@ import ru.ibs.happynes.dto.ImportantTableDto;
 import ru.ibs.happynes.entities.ProjectCard;
 import ru.ibs.happynes.services.intefaces.ProjectDetailService;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class DetailSearchController {
     }
 
     @GetMapping("filter")
-    public List<ImportantTableDto> filter(@RequestBody FilterSearchDto filterSearchDto){
+    public List<ImportantTableDto> filter(@RequestBody FilterSearchDto filterSearchDto) throws ParseException {
         List<ProjectCard> result = service.filter(filterSearchDto);
         return MapperUtil.convertList(result, this::convertToDTO);
     }

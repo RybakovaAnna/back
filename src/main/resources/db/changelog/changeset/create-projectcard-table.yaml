@@ -163,7 +163,7 @@ databaseChangeLog:
                   type: boolean
               - column:
                   name: card_create_date
-                  type: timestamp
+                  type: date
               - column:
                   name: functional_direction
                   type: varchar(200)

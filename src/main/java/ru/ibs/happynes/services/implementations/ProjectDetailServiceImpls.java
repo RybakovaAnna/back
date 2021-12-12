@@ -1,5 +1,8 @@
 package ru.ibs.happynes.services.implementations;
 
+import liquibase.pro.packaged.T;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -8,6 +11,11 @@ import ru.ibs.happynes.entities.ProjectCard;
 import ru.ibs.happynes.repositories.ProjectCardRepository;
 import ru.ibs.happynes.services.intefaces.ProjectDetailService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.text.ParseException;
 import java.time.Instant;
 import java.util.*;
@@ -18,17 +26,17 @@ import java.util.stream.Collectors;
 public class ProjectDetailServiceImpls implements ProjectDetailService {
 
     private final ProjectCardRepository projectCardRepository;
-
     private final List<Function<String, List<ProjectCard>>> allTablesFinder;
+    private final EntityManager entityManager;
 
-    public ProjectDetailServiceImpls(ProjectCardRepository projectCardRepository){
+    public ProjectDetailServiceImpls(ProjectCardRepository projectCardRepository, EntityManager entityManager) {
         this.projectCardRepository = projectCardRepository;
-
+        this.entityManager = entityManager;
         allTablesFinder = Arrays.asList(
                 param -> {
                     try {
                         return Collections.singletonList(projectCardRepository.findProjectCardById(Long.parseLong(param)));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         return Collections.emptyList();
                     }
                 },
@@ -46,7 +54,7 @@ public class ProjectDetailServiceImpls implements ProjectDetailService {
                 });
     }
 
-    public List<ProjectCard> fAllInDate(Date bDate, Date aDate){
+    public List<ProjectCard> fAllInDate(Date bDate, Date aDate) {
 
         List<ProjectCard> list = projectCardRepository.findAll();
         List<ProjectCard> result = new ArrayList<>();
@@ -63,7 +71,7 @@ public class ProjectDetailServiceImpls implements ProjectDetailService {
     }
 
     private Boolean dateChecker(Date date, Date before, Date after) throws ParseException {
-        return  (date.before(after) && date.after(before));
+        return (date.before(after) && date.after(before));
     }
 
     @Override
@@ -80,37 +88,74 @@ public class ProjectDetailServiceImpls implements ProjectDetailService {
         return list;
     }
 
+
     @Override
     public List<ProjectCard> filter(FilterSearchDto filterSearchDto) {
 
-        List<ProjectCard> list = projectCardRepository.findAll();
+//        List<ProjectCard> list = projectCardRepository.findAll();
+//
+//        if (filterSearchDto.getProjectStage() != null)
+//            list = list.stream().filter(
+//                    v -> filterSearchDto.getProjectStage().equals(v.getProjectStage())
+//            ).collect(Collectors.toList());
+//
+//        if (filterSearchDto.getFirm() != null)
+//            list = list.stream().filter(
+//                    v -> filterSearchDto.getFirm().equals(v.getFirm())
+//            ).collect(Collectors.toList());
+//
+//        if (filterSearchDto.getCreatorName() != null)
+//            list = list.stream().filter(
+//                    v -> filterSearchDto.getCreatorName().equals(v.getCreatorName())
+//            ).collect(Collectors.toList());
+//
+//        if (filterSearchDto.getDateBefore() != null && filterSearchDto.getDateAfter() != null){
+//            List<ProjectCard> compare = fAllInDate(filterSearchDto.getDateBefore(), filterSearchDto.getDateAfter());
+//            Set<ProjectCard> result = list.stream()
+//                    .distinct()
+//                    .filter(compare::contains)
+//                    .collect(Collectors.toSet());
+//            list.clear();
+//            list.addAll(result);
+//        }
+//
+//        return list;
+        String creatorName = filterSearchDto.getCreatorName();
+        String stage = filterSearchDto.getProjectStage();
+        String firm = filterSearchDto.getFirm();
+        Date dateBefore = filterSearchDto.getDateBefore();
+        Date dateAfter = filterSearchDto.getDateAfter();
 
-        if (filterSearchDto.getProjectStage() != null)
-            list = list.stream().filter(
-                    v -> filterSearchDto.getProjectStage().equals(v.getProjectStage())
-            ).collect(Collectors.toList());
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProjectCard> cq = cb.createQuery(ProjectCard.class);
 
-        if (filterSearchDto.getFirm() != null)
-            list = list.stream().filter(
-                    v -> filterSearchDto.getFirm().equals(v.getFirm())
-            ).collect(Collectors.toList());
+        Root<ProjectCard> projectCardRoot = cq.from(ProjectCard.class);
+        List<Predicate> predicates = new ArrayList<>();
 
-        if (filterSearchDto.getCreatorName() != null)
-            list = list.stream().filter(
-                    v -> filterSearchDto.getCreatorName().equals(v.getCreatorName())
-            ).collect(Collectors.toList());
+        if (creatorName != null)
+            predicates.add(cb.equal(projectCardRoot.get("creatorName"), creatorName));
+        if (stage != null)
+            predicates.add(cb.equal(projectCardRoot.get("projectStage"), stage));
+        if (firm != null)
+            predicates.add(cb.equal(projectCardRoot.get("firm"), firm));
 
-        if (filterSearchDto.getDateBefore() != null && filterSearchDto.getDateAfter() != null){
-            List<ProjectCard> compare = fAllInDate(filterSearchDto.getDateBefore(), filterSearchDto.getDateAfter());
-            Set<ProjectCard> result = list.stream()
-                    .distinct()
-                    .filter(compare::contains)
-                    .collect(Collectors.toSet());
-            list.clear();
-            list.addAll(result);
+        cq.where(predicates.toArray(new Predicate[0]));
+
+        List<ProjectCard> filtered = entityManager.createQuery(cq).getResultList();
+
+        if (filterSearchDto.getDateBefore() == null && filterSearchDto.getDateAfter() == null)
+            return filtered;
+        else {
+            List<ProjectCard> result = filtered.stream()
+                    .filter(t -> {
+                        try {
+                            return dateChecker(t.getCardCreateDate(), dateAfter, dateBefore);
+                        } catch (ParseException e) {
+                            return false;
+                        }
+                    }).collect(Collectors.toList());
+            return result;
         }
-
-        return list;
     }
 
     @Override
