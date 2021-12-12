@@ -67,6 +67,7 @@ public class MapperUtil {
                     m.map(ProjectTeam::getDevOps, ProjectTeamCardDto::setDevOps);
                     m.map(ProjectTeam::getDesigners, ProjectTeamCardDto::setDesigners);
                     m.map(ProjectTeam::getIsTeamFormed, ProjectTeamCardDto::setIsTeamFormed);
+                    m.map(ProjectTeam::getTeamCount, ProjectTeamCardDto::setTeamCount);
                 });
 
         mapper.typeMap(RecruitingCard.class, RecruitingCardDto.class)
@@ -124,6 +125,7 @@ public class MapperUtil {
                     m.map(ProjectTeamCardDto::getDevOps, ProjectTeam::setDevOps);
                     m.map(ProjectTeamCardDto::getDesigners, ProjectTeam::setDesigners);
                     m.map(ProjectTeamCardDto::getIsTeamFormed, ProjectTeam::setIsTeamFormed);
+                    m.map(ProjectTeamCardDto::getTeamCount, ProjectTeam::setTeamCount);
                 });
 
         mapper.typeMap(RecruitingCardDto.class, RecruitingCard.class)

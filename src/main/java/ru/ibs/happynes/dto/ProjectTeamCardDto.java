@@ -30,4 +30,6 @@ public class ProjectTeamCardDto {
     private String designers;
 
     private Boolean isTeamFormed;
+
+    private String teamCount;
 }

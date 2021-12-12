@@ -89,6 +89,9 @@ databaseChangeLog:
               - column:
                   name: is_team_formed
                   type: boolean
+              - column:
+                  name: team_count
+                  type: varchar(200)
         - createTable:
             tableName: recruiting_card
             columns:
