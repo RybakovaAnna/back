@@ -76,8 +76,8 @@ public class MainDtoController {
         return projectCardService.findFirmDictionary();
     }
 
-    @GetMapping("logout")
-    private void logOut(){
-
-    }
+//    @GetMapping("logout")
+//    private void logOut(){
+//
+//    }
 }
