@@ -8,7 +8,7 @@ WORKDIR /usr/src/myapp
 RUN mvn clean package -DskipTests -e -X package
 
 # stage 2
-FROM openjdk:17-alpine
+FROM openjdk:17
 
 ARG JAVA_PARAM="-Xms256M -Xmx1024M -XX:+UseG1GC"
 ENV JAVA_PARAM=$JAVA_PARAM
