@@ -44,11 +44,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
         super.configure(http);
         http
                 .authorizeRequests()
-                // .antMatchers("/api/table/readCards*").hasAnyRole("projectManagement", "recruiter", "lineManager")
-                // .antMatchers("/api/table/update*").hasRole("projectManagement")
-                // .antMatchers("/api/table/create*").hasRole("projectManagement")
-                // .antMatchers("/api/table/create*").hasRole("projectManagement")
-                // .antMatchers("/api/table/read").permitAll()
+                .antMatchers("/api/table/readCards*").hasAnyRole("projectManagement", "recruiter", "lineManager")
+                .antMatchers("/api/table/update*").hasRole("projectManagement")
+                .antMatchers("/api/table/create*").hasRole("projectManagement")
+                .antMatchers("/api/table/create*").hasRole("projectManagement")
+                .antMatchers("/api/table/read").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .cors()
