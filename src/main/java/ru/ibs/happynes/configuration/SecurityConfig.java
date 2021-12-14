@@ -6,8 +6,6 @@ import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticatio
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,51 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
-
-
-//@Configuration
-//@EnableWebSecurity
-//@ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
-//class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
-//
-//    @Autowired
-//    public void configureGlobal(
-//            AuthenticationManagerBuilder auth) throws Exception {
-//
-//        KeycloakAuthenticationProvider keycloakAuthenticationProvider
-//                = keycloakAuthenticationProvider();
-//        keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(
-//                new SimpleAuthorityMapper());
-//        auth.authenticationProvider(keycloakAuthenticationProvider);
-//    }
-//
-//    @Bean
-//    public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {
-//        return new KeycloakSpringBootConfigResolver();
-//    }
-//
-//    @Bean
-//    @Override
-//    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-//        return new RegisterSessionAuthenticationStrategy(
-//                new SessionRegistryImpl());
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        super.configure(http);
-//        http.csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("api/table/create")
-//                .hasRole("projectManagement")
-//                .antMatchers("api/table/delete")
-//                .hasRole("projectManagement")
-//                .antMatchers("api/table/update")
-//                .hasRole("projectManagement")
-//                .antMatchers("/api/table")
-//                .permitAll();
-//    }
-//}
 
 @KeycloakConfiguration
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
@@ -70,7 +23,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
      * Registers the KeycloakAuthenticationProvider with the authentication manager.
      */
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
         KeycloakAuthenticationProvider authenticationProvider = new KeycloakAuthenticationProvider();
         authenticationProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
         auth.authenticationProvider(authenticationProvider);
@@ -94,9 +47,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 .antMatchers("/api/table/readCards*").hasAnyRole("projectManagement", "recruiter", "lineManager")
                 .antMatchers("/api/table/update*").hasRole("projectManagement")
                 .antMatchers("/api/table/create*").hasRole("projectManagement")
-//                .antMatchers("/api/table/delete*").hasRole("projectManagement")
-//                .antMatchers("/api*").hasAnyRole("projectManagement", "recruiter", "lineManager")
-//                .antMatchers("api/search*").permitAll()
+                .antMatchers("/api/table/create*").hasRole("projectManagement")
+                .antMatchers("/api/table/read").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .cors()

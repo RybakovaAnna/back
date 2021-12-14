@@ -33,4 +33,5 @@ public class RecruitingCard {
     @OneToMany(cascade = CascadeType.ALL)
     List<EmployeeD> employeesDLists;
 
+
 }

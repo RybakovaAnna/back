@@ -23,4 +23,5 @@ public class ProjectTechnologies {
     public ProjectTechnologies(String technologies){
         this.technologies = technologies;
     }
+
 }

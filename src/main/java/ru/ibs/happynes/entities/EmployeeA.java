@@ -21,4 +21,5 @@ public class EmployeeA {
     private String phoneAnalyticNumber;
 
     private String emailAnalytic;
+
 }
